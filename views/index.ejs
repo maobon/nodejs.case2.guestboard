@@ -17,8 +17,10 @@
 <body>
 <h1>留言板</h1>
 <div class="container">
+    <!-- 消息列表 -->
     <ul class="comment-list">
     </ul>
+
     <div>
         <!-- form 表单 -->
         <form id="form" method="post" action="/comments">
@@ -33,23 +35,37 @@
 <!-- 资源引用写为绝对路径 -->
 <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/node_modules/art-template/dist/template.js"></script>
+
 <!-- template -->
-<script type="text/template" id="tpl">
-    <li><span class="ip">192.168.1.1</span>说：<span class="message">哈哈</span></li>
+<script type="text/template" id="templateId">
+    {{ each list }}
+    <li><span class="ip">{{ $value.ip }}</span>说：<span class="message">{{ $value.message }}</span></li>
+    {{ /each }}
 </script>
 
 <script>
     $(function () {
 
-        $(window).on('keyup', function (e) {
-            if (e.keyCode === 13) {
-                console.log('Enter button is clicked...');
-            }
-        })
+        queryAllMessage();
 
-        $("#form").on('submit', function (e) {
-            e.preventDefault();
+        setInterval(queryAllMessage, 2000);
 
+        function queryAllMessage() {
+            $.ajax({
+                url: '/query',
+                type: 'get',
+                dataType: 'json'
+
+            }).then(function (data) {
+                var strHTML = template('templateId', {list: data.result});
+                $(".comment-list").html(strHTML);
+
+            }).catch(function (err) {
+                console.log('查询消息列表异常');
+            })
+        }
+
+        function sendCommit() {
             $.ajax({
                 type: 'post',
                 url: '/submit',
@@ -57,11 +73,26 @@
                 dataType: 'json'
 
             }).then(function (data) {
+                if (data.err_code === 0) {
+                    $("#message").val('');
+                }
+                localeData();
 
             }).catch(function (err) {
-
+                console.log('聊天信息提交出错');
             })
+        }
 
+
+        $(window).on('keyup', function (e) {
+            if (e.keyCode === 13) {
+                sendCommit();
+            }
+        })
+
+        $("#form").on('submit', function (e) {
+            e.preventDefault();
+            sendCommit();
         });
     });
 </script>

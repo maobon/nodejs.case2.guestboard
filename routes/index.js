@@ -10,6 +10,7 @@ var router = express.Router();
 
 router
     .get('/', guestController.showIndex)
+    .get('/query', guestController.queryAll)
     .post('/submit', guestController.doSubmit);
 
 module.exports = router;
