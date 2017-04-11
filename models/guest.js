@@ -2,10 +2,11 @@
  * Created by xinbob on 4/11/17.
  *
  * 业务层 操作数据库
+ * 使用第三方 MongoDB连接库 mongoose 支持ORM对象关系映射
+ * 相比官方的 mongodb连接驱动 使用起来更加方便高效
  */
 
 var mongoose = require('mongoose');
-
 
 /**
  * 1. 连接数据库

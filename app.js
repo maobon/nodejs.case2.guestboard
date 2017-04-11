@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 var router = require('./routes');
 
-// 使用express框架 编写nodeJS后端
+// 使用express框架
 var app = express();
 
 // 开放公共资源

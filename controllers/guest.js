@@ -13,7 +13,7 @@ var Guest = require('../models/guest');
  */
 exports.showIndex = function (req, res) {
     res.render('index', {
-        title: 'Hello EJS'
+        title: ' 使用ejs模板引擎渲染'
     })
 }
 
@@ -25,9 +25,13 @@ exports.showIndex = function (req, res) {
  */
 exports.doSubmit = function (req, res) {
 
+    // req.body body-parser插件将form表单提交的信息装入req中
     var message = req.body.message;
+    // 可以从req中直接获取客户端的ip地址
     var ip = req.ip;
 
+    // 直接new modle 就可以构造一个消息实例
+    // 然后直接存入数据库中
     new Guest({
         ip: ip,
         message: message
