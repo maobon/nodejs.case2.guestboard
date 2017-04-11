@@ -10,3 +10,12 @@ exports.showIndex = function (req, res) {
     })
 }
 
+exports.doSubmit = function (req, res) {
+
+    var message = req.body.message;
+    var ip = req.ip;
+    console.log(message);
+
+
+}
+
