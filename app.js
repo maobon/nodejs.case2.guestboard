@@ -27,6 +27,10 @@ app.set('views', config.viewPath);
 // app.engine('.html', ejs.__express);
 // app.set('view engine', 'html');
 
+/**
+ * Middleware 中间件的概念
+ * express的中间件学习
+ */
 // express框架 中间件 方便处理常规表单post提交时提交的数据
 // 表单提交 可以通过 req.body 来获取表单请求体数据
 app.use(bodyParser.urlencoded({extended: false}))
