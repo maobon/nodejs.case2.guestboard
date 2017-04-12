@@ -8,6 +8,9 @@
 
 var mongoose = require('mongoose');
 
+// 告诉mongoDB使用Node中原生的Promise
+mongoose.Promise = global.Promise;
+
 /**
  * 1. 连接数据库
  */
